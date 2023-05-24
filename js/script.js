@@ -9,24 +9,16 @@ const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 const filterSelect = document.querySelector("#filter-select");
 const searchInput = document.querySelector("#search-input");
 const eraseButton = document.querySelector("#erase-button");
+const todos = document.querySelectorAll(".todo");
 
 let oldInputValue;
 
-// recuperarDados(pegarConfiguracoes)
-
 // Funções
 const saveTodo = (text, classe) => {
-
-  
   const todo = document.createElement("div");
   todo.classList.add("todo");
 
-  // const = 
-  if (classe != undefined) {
-    todo.classList.add(classe)
-    console.log('FOIIIIIIIIIIIIIIIIIIIII')
-  }
-
+  if (classe != "undefined") todo.classList.add(classe);
 
   const todoTitle = document.createElement("h3");
   todoTitle.innerText = fraseMaiuscula(text);
@@ -52,9 +44,7 @@ const saveTodo = (text, classe) => {
   todoInput.value = "";
   todoInput.focus();
 
-    salvarConfiguracoes(fraseMaiuscula(text), classe);
-
-
+  salvarConfiguracoes(fraseMaiuscula(text), classe);
 };
 
 const toggleForms = () => {
@@ -75,7 +65,7 @@ const updateTodo = (text) => {
   });
 };
 
-const changeFilter = (filterValue, e) => {
+const changeFilter = (filterValue) => {
   let todoList = document.querySelectorAll(".todo");
 
   if (filterValue.value === "all") {
@@ -113,37 +103,31 @@ function fraseMaiuscula(frase) {
   return fraseFinal;
 }
 
-const todos = document.querySelectorAll(".todo");
-
-// let array=[{"titulo":"Estou Fazendo Alguma Coisa","estado":"done"},{"titulo":"Estudar JavaScript"}];
-// let array=[{"titulo":"Estou Fazendo Alguma Coisa","estado":"done"},{"titulo":"Estudar JavaScript"},{"titulo":"Estudando","estado":"done"},{"titulo":"Lavar louça"}];
-
 function salvarConfiguracoes(texto, classe) {
   localStorage.setItem(texto, classe);
-  // recuperarDados();
 }
 
 function excluirConfiguracoes(chave) {
   localStorage.removeItem(chave);
 }
 
-// function recuperarDados() {
-//   let arrayDados = [];
-//   let objDados = {};
+function recuperarDados() {
+  let arrayDados = [];
+  let objDados = {};
 
-//   if (localStorage.length) {
-//     for (var i = 0; i < localStorage.length; i++) {
-//       objDados = {
-//         titulo: localStorage.key(i),
-//         estado: localStorage.getItem(localStorage.key(i)),
-//       };
+  if (localStorage.length) {
+    for (var i = 0; i < localStorage.length; i++) {
+      objDados = {
+        titulo: localStorage.key(i),
+        estado: localStorage.getItem(localStorage.key(i)),
+      };
 
-//       arrayDados.push(objDados);
-//     }
-//     return arrayDados;
-//   }
-// }
-// recuperarDados();
+      arrayDados.push(objDados);
+    }
+    return arrayDados;
+  }
+}
+
 
 // Eventos
 
@@ -220,8 +204,6 @@ searchInput.addEventListener("keyup", () => {
   });
 });
 
-
-
 eraseButton.addEventListener("click", (e) => {
   e.preventDefault();
   searchInput.value = "";
@@ -234,22 +216,13 @@ eraseButton.addEventListener("click", (e) => {
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
 const htmlElement = document.getElementsByTagName("html")[0];
 
-
-
 themeToggleBtn.addEventListener("click", () => {
   htmlElement.classList.toggle("dark-theme");
 });
 
-
-
 if (localStorage.length) {
+  const dadosRecuperados = recuperarDados();
   for (var i = 0; i < localStorage.length; i++) {
-    if (localStorage.getItem(localStorage.key(i)) != 'undefined') {
-      saveTodo(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
-    console.log('NAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
-
-    } else {
-      saveTodo(localStorage.key(i));
-    }
+    saveTodo(dadosRecuperados[i].titulo, dadosRecuperados[i].estado);
   }
 }
