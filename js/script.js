@@ -18,7 +18,9 @@ const saveTodo = (text, classe) => {
   const todo = document.createElement("div");
   todo.classList.add("todo");
 
-  if (classe != "undefined") todo.classList.add(classe);
+  if (classe != "undefined") {
+    todo.classList.add(classe);
+  }
 
   const todoTitle = document.createElement("h3");
   todoTitle.innerText = fraseMaiuscula(text);
@@ -128,7 +130,6 @@ function recuperarDados() {
   }
 }
 
-
 // Eventos
 
 todoForm.addEventListener("submit", (e) => {
@@ -138,7 +139,7 @@ todoForm.addEventListener("submit", (e) => {
 
   if (inputValue) {
     // Salvando o todo
-    saveTodo(inputValue);
+    saveTodo(inputValue, "undefined");
   }
 });
 
