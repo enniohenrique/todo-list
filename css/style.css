@@ -171,18 +171,21 @@ input,select {
 /* Estilos para o modo noturno */
 /* Estilos para o modo noturno */
 .dark-theme {
-    background-color: #333;
     color: #fdfdfd;
   }
   
-  .dark-theme button {
+  .dark-theme button {    
     background-color: #102f53;
     color: #fdfdfd;
-    border-color: #102f53;
+    border: px solid #fdfdfd;
+
+  }
+  .dark-theme button > i {    
+    color: #fdfdfd;
   }
   
-  .dark-theme button:hover {
-    background-color: #fff;
+  .dark-theme button:hover {    
+    background-color: #fdfdfd;
     color: #102f53;
   }
   
@@ -207,7 +210,7 @@ input,select {
   }
   
   .dark-theme .todo {
-    background-color: #102f53;
+    background-color: #333;
     color: #fdfdfd;
     border-bottom-color: #fdfdfd;
   }
